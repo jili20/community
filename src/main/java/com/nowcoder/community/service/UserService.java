@@ -150,6 +150,11 @@ public class UserService implements CommunityConstant {
     public void logout(String ticket){
         loginTicketMapper.updateStatus(ticket, 1); // 修改凭证为无效，意为退出登录
     }
+
+    // 查询凭证
+    public LoginTicket findLoginTicket(String ticket){
+        return loginTicketMapper.selectByTicket(ticket);
+    }
 }
 
 
