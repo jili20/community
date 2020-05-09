@@ -16,10 +16,12 @@ public class DiscussPostService {
     @Autowired
     private DiscussPostMapper discussPostMapper;
 
+    // 查询某页数据
     public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit){
         return discussPostMapper.selectDiscussPosts(userId, offset, limit);
     }
 
+    // 查询行数
     public int findDiscussPostRows(int userId){
         return discussPostMapper.selectDiscussPostRows(userId);
     }

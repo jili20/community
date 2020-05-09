@@ -5,11 +5,10 @@ package com.nowcoder.community.entity;
  * @author bing  @create 2020/5/7 1:33 下午
  */
 public class Page {
-
     private Integer current = 1; // 当前页码
     private Integer limit = 10;  // 显示上限
     private Integer rows;  // 数据总数（用于计算总页数 ）
-    private String path; // 查询路径 （ 用于复用分页连接 ）
+    private String path;   // 查询路径 （ 用于复用分页连接 ）
 
     public Integer getCurrent() {
         return current;

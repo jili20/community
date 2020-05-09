@@ -48,8 +48,6 @@ public class HomeController {
         model.addAttribute("discussPosts", discussPosts); // 页面展示结果
         return "/index";
     }
-
-
 }
 
 
