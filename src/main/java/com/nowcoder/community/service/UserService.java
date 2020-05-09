@@ -1,6 +1,8 @@
 package com.nowcoder.community.service;
 
+import com.nowcoder.community.dao.LoginTicketMapper;
 import com.nowcoder.community.dao.UserMapper;
+import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
@@ -29,6 +31,9 @@ public class UserService implements CommunityConstant {
     private String domain; // 加入域名
     @Value("${server.servlet.context-path}")
     private String contextPath; // 加入项目路径
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper; // 登录功能
 
     public User findUserById(int id) {
         return userMapper.selectById(id);
@@ -96,6 +101,54 @@ public class UserService implements CommunityConstant {
         }else {
             return ACTIVATION_FAILURE;
         }
+    }
+
+    // 登录功能
+    public Map<String, Object> login(String username, String password, long expiredSeconds) {
+        Map<String, Object> map = new HashMap<>();
+        //空值处理
+        if(StringUtils.isBlank(username)) {
+            map.put("usernameMsg", "账号不能为空");
+            return map;
+        }
+        if (StringUtils.isBlank(password)) {
+            map.put("passwordMsg", "密码不能为空");
+            return map;
+        }
+
+        //验证账号
+        User user = userMapper.selectByName(username);
+        if(user == null) {
+            map.put("usernameMsg", "该账号不存在！");
+            return map;
+        }
+
+        //验证状态
+        if(user.getStatus() == 0) {
+            map.put("usernameMsg", "该账号未激活！");
+            return map;
+        }
+
+        //验证密码
+        password = CommunityUtil.md5(password + user.getSalt());
+        if (!user.getPassword().equals(password)) {
+            map.put("passwordMsg", "密码不正确！");
+            return map;
+        }
+
+        //通过以上验证，生成登录成功凭证
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(user.getId());
+        loginTicket.setTicket(CommunityUtil.generateUUID()); // 凭证生成不重复的随机字符串
+        loginTicket.setStatus(0); // 设置有效状态
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000)); // 过期时间
+        loginTicketMapper.insertLoginTicket(loginTicket);
+        map.put("ticket", loginTicket.getTicket());
+        return map;
+    }
+    // 退出登录
+    public void logout(String ticket){
+        loginTicketMapper.updateStatus(ticket, 1); // 修改凭证为无效，意为退出登录
     }
 }
 
