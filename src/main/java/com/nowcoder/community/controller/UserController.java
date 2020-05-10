@@ -1,5 +1,6 @@
 package com.nowcoder.community.controller;
 
+import com.nowcoder.community.annotation.LoginRequired;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityUtil;
@@ -46,12 +47,14 @@ public class UserController {
     @Autowired
     private HostHolder hostHolder; // 容器，用于代替session对象
 
+    @LoginRequired // 使用自定义注解，登录以后才能访问
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String getSettingPage(){
         return "/site/setting";
     }
 
     // 处理上传头像
+    @LoginRequired // 使用自定义注解，登录以后才能访问
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
     public String uploadHeader(MultipartFile headerImage, Model model){
         if (headerImage == null) {
