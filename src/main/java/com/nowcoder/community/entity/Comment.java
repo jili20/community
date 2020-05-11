@@ -1,7 +1,6 @@
 package com.nowcoder.community.entity;
 
-import javax.xml.crypto.Data;
-
+import java.util.Date;
 /** 评论表实体类
  * @author bing  @create 2020/5/11 1:31 下午
  */
@@ -14,9 +13,9 @@ public class Comment {
     private Integer targetId;
     private String content;
     private Integer status;
-    private Data createTime;
+    private Date createTime;
 
-    public  Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -72,11 +71,11 @@ public class Comment {
         this.status = status;
     }
 
-    public Data getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Data createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
