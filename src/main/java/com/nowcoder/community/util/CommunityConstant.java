@@ -1,6 +1,6 @@
 package com.nowcoder.community.util;
 
-/**
+/** 常量接口
  * @author bing  @create 2020/5/9 10:01 上午
  */
 public interface CommunityConstant {
@@ -29,6 +29,16 @@ public interface CommunityConstant {
      * 记住我状态的登录凭证超时时间
      */
     int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 100; // 100 天
+
+    /**
+     * 实体类型：帖子
+     */
+    int ENTITY_TYPE_POST = 1;
+
+    /**
+     * 实体类型：评论
+     */
+    int ENTITY_TYPE_COMMENT = 2;
 
 }
 

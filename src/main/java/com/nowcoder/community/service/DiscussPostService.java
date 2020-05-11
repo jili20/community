@@ -29,9 +29,9 @@ public class DiscussPostService {
     }
 
     // 添加帖子
-    public int addDiscussPost(DiscussPost post){
+    public int addDiscussPost(DiscussPost post) {
         if (post == null) {
-            throw new IllegalArgumentException("参数不能为空！");
+            throw new IllegalArgumentException("参数不能为空!");
         }
         //转义HTML标记
         post.setTitle(HtmlUtils.htmlEscape(post.getTitle()));
