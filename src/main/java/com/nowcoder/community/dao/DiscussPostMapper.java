@@ -4,9 +4,7 @@ import com.nowcoder.community.entity.DiscussPost;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
-
 /**
  * @author bing  @create 2020/5/6 11:27 下午
  */
@@ -23,8 +21,10 @@ public interface DiscussPostMapper {
 
     //添加帖子
     int insertDiscussPost(DiscussPost discussPost);
-}
 
+    //帖子详情
+    DiscussPost selectDiscussPostById(int id);
+}
 
 
 
