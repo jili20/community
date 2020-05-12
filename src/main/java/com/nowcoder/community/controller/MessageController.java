@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.*;
-
 /**
  * 私信控制器
- *
  * @author bing  @create 2020/5/12 11:50 上午
  */
 @Controller
@@ -34,6 +31,7 @@ public class MessageController {
     //私信列表
     @RequestMapping(path = "/letter/list", method = RequestMethod.GET) // 方法的返回路径
     public String getLetterList(Model model, Page page) {
+//        Integer.valueOf("abc");//人为制造错误，测试错误页面
         User user = hostHolder.getUser();
         //分页信息
         page.setLimit(5);
@@ -88,16 +86,13 @@ public class MessageController {
         //查询私信目标，发送给模板显示
         model.addAttribute("target", getLetterTarget(conversationId));
 
-
         //设置已读
         List<Integer> ids = getLetterIds(letterList);
         if (!ids.isEmpty()) {
             messageService.readMessage(ids);
-
         }
         return "/site/letter-detail";
     }
-
 
     // 私信目标
     private User getLetterTarget(String conversationId) {
@@ -111,7 +106,6 @@ public class MessageController {
             return userService.findUserById(id0);
         }
     }
-
 
     // 获取到未读消息的id;把已查看的私信改为已卖状态
     //把私信列表的数据提取出来改为已读
@@ -132,6 +126,7 @@ public class MessageController {
     @RequestMapping(path = "/letter/send", method = RequestMethod.POST)
     @ResponseBody //异步
     public String sendLetter(String toName, String content) { // 发给谁，发送的内容
+//        Integer.valueOf("abc");// ⚫人为制造错误，测试错误页面
         User target = userService.findUserByName(toName);
         if (target == null) {
             return CommunityUtil.getJSONString(1, "目标用户不存在");
@@ -143,7 +138,6 @@ public class MessageController {
             message.setConversationId(message.getFromId() + "_" + message.getToId());
         } else {
             message.setConversationId(message.getToId() + "_" + message.getFromId());
-
         }
         message.setContent(content);
         message.setCreateTime(new Date());
