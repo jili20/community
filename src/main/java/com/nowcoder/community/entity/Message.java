@@ -1,15 +1,14 @@
 package com.nowcoder.community.entity;
 
 import java.util.Date;
-/** 私信实体类
- * @author bing  @create 2020/5/11 9:59 下午
- */
+
 public class Message {
-    private Integer id;
-    private Integer fromId;
-    private Integer toId;
+    private int id;
+    private int fromId;
+    private int toId;
     private String conversationId;
     private String content;
+    private int status;
     private Date createTime;
 
     public int getId() {
@@ -52,6 +51,14 @@ public class Message {
         this.content = content;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -68,34 +75,8 @@ public class Message {
                 ", toId=" + toId +
                 ", conversationId='" + conversationId + '\'' +
                 ", content='" + content + '\'' +
+                ", status=" + status +
                 ", createTime=" + createTime +
                 '}';
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
