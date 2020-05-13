@@ -2,7 +2,7 @@
 //
 //import org.aspectj.lang.ProceedingJoinPoint;
 //import org.aspectj.lang.annotation.*;
-///** AOP 方面组件，统一处理日志
+///** 演示用：AOP 方面组件，统一处理日志
 // * @author bing  @create 2020/5/12 11:01 下午
 // */
 ////@Component
