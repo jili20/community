@@ -11,10 +11,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.concurrent.TimeUnit;
-
-/**
+/** redis 的基本操作
  * @author bing  @create 2020/5/13 12:45 下午
  */
 @RunWith(SpringRunner.class)
