@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Mapper
+@Deprecated // 弃用该组件，改用 redis 存储
 public interface LoginTicketMapper {
     // 查询数据
     @Insert({
