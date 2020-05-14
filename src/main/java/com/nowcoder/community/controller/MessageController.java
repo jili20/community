@@ -126,7 +126,7 @@ public class MessageController {
     @RequestMapping(path = "/letter/send", method = RequestMethod.POST)
     @ResponseBody //异步
     public String sendLetter(String toName, String content) { // 发给谁，发送的内容
-//        Integer.valueOf("abc");// ⚫人为制造错误，测试错误页面
+//        Integer.valueOf("abc");// 人为制造错误，测试错误页面
         User target = userService.findUserByName(toName);
         if (target == null) {
             return CommunityUtil.getJSONString(1, "目标用户不存在");
