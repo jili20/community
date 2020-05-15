@@ -1,7 +1,9 @@
 package com.nowcoder.community.controller;
 
+import com.nowcoder.community.entity.Event;
 import com.nowcoder.community.entity.Page;
 import com.nowcoder.community.entity.User;
+import com.nowcoder.community.event.EventProducer;
 import com.nowcoder.community.service.FollowService;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityConstant;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
-
 /**
  * @author bing  @create 2020/5/14 10:39 上午
  */
@@ -33,12 +34,25 @@ public class FollowController implements CommunityConstant {
     @Autowired
     private UserService userService;
 
+    @Autowired // kafka - 消息通知 - 生产者
+    private EventProducer eventProducer;
+
     // 关注
     @RequestMapping(path = "/follow",method = RequestMethod.POST)
     @ResponseBody //因为是异步，加这个注解
     public String follow(int entityType, int entityId){ // 自己加拦截器，登录可操作此功能
         User user = hostHolder.getUser(); // 获取当前登录用户
         followService.follow(user.getId(), entityType,entityId);//关注
+
+        // 点关注触发消息通知事件
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
+
         return CommunityUtil.getJSONString(0,"已关注");
     }
 
