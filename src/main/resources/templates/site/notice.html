@@ -102,6 +102,7 @@
                         </div>
                     </div>
                 </li>
+
                 <!--点赞类通知-->
                 <li class="media pb-3 pt-3 mb-3 border-bottom position-relative" th:if="${likeNotice.message!=null}">
                     <span class="badge badge-danger" th:text="${likeNotice.unread!=0?likeNotice.unread:''}">3</span>
@@ -123,6 +124,8 @@
                         </div>
                     </div>
                 </li>
+
+
                 <!--关注类通知-->
                 <li class="media pb-3 pt-3 mb-3 border-bottom position-relative" th:if="${followNotice.message!=null}">
                     <span class="badge badge-danger" th:text="${followNotice.unread!=0?followNotice.unread:''}">3</span>
@@ -144,6 +147,8 @@
                         </div>
                     </div>
                 </li>
+
+
             </ul>
         </div>
     </div>

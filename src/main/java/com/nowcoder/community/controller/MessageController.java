@@ -176,6 +176,8 @@ public class MessageController implements CommunityConstant {
             //未读评论通知数量
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_COMMENT);
             messageVo.put("unread",unread);
+        }else {
+            messageVo.put("message",message);
         }
         model.addAttribute("commentNotice",messageVo);
 
@@ -184,20 +186,22 @@ public class MessageController implements CommunityConstant {
         messageVo = new HashMap<>();
         if (message != null) {
             messageVo.put("message",message);
-
+            //将content从json格式的字符串转换为字符串对象
             String content = HtmlUtils.htmlUnescape(message.getContent()); // 还原转义字符
             Map<String,Object> data = JSONObject.parseObject(content, HashMap.class);//还原回对象
 
-            messageVo.put("user", userService.findUserById((Integer) data.get("userId")));
-            messageVo.put("entityType", data.get("entityType"));
-            messageVo.put("entityId", data.get("entityId"));
-            messageVo.put("postId", data.get("postId"));
+            messageVo.put("user",userService.findUserById((Integer) data.get("userId")));
+            messageVo.put("entityType",data.get("entityType"));
+            messageVo.put("entityId",data.get("entityId"));
+            messageVo.put("postId",data.get("postId"));
             //评论通知总数
             int count = messageService.findNoticeCount(user.getId(), TOPIC_LIKE);
             messageVo.put("count",count);
             //未读评论通知数量
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_LIKE);
             messageVo.put("unread",unread);
+        }else {
+            messageVo.put("message",message);
         }
         model.addAttribute("likeNotice",messageVo);
 
@@ -219,6 +223,8 @@ public class MessageController implements CommunityConstant {
             //未读评论通知数量
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_FOLLOW);
             messageVo.put("unread",unread);
+        }else {
+            messageVo.put("message",message);
         }
         model.addAttribute("followNotice",messageVo);
 

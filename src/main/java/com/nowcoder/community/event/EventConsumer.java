@@ -1,6 +1,9 @@
-package com.nowcoder.community.entity;
+package com.nowcoder.community.event;
 
 import com.alibaba.fastjson.JSONObject;
+import com.nowcoder.community.entity.Event;
+import com.nowcoder.community.entity.Message;
+import com.nowcoder.community.service.DiscussPostService;
 import com.nowcoder.community.service.MessageService;
 import com.nowcoder.community.util.CommunityConstant;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -9,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +26,9 @@ public class EventConsumer implements CommunityConstant {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private DiscussPostService discussPostService;
 
     //消费三种主题
     @KafkaListener(topics = {TOPIC_COMMENT, TOPIC_LIKE, TOPIC_FOLLOW})
@@ -40,7 +47,7 @@ public class EventConsumer implements CommunityConstant {
         // 发送站内通知
         Message message = new Message();
         message.setFromId(SYSTEM_USER_ID);// 消息发布者： 1号系统用户
-        message.setToId(event.getEntityId());//消息接收者：作者
+        message.setToId(event.getEntityUserId());//消息接收者：作者
         message.setConversationId(event.getTopic());//这里存主题类型
         message.setCreateTime(new Date()); // 发送时间
 
