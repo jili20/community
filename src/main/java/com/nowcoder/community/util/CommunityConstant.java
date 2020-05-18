@@ -56,6 +56,11 @@ public interface CommunityConstant {
     String TOPIC_LIKE = "like";
 
     /**
+     * 主题：发贴
+     */
+    String TOPIC_PUBLISH = "publish";
+
+    /**
      * Kafka 主题：
      */
     String TOPIC_FOLLOW = "follow";

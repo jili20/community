@@ -25,10 +25,8 @@ public class CommentController implements CommunityConstant {
     private CommentService commentService;
     @Autowired
     private HostHolder hostHolder;
-
     @Autowired // kafka - 消息通知 - 生产者
     private EventProducer eventProducer;
-
     @Autowired
     private DiscussPostService discussPostService;
 
@@ -57,6 +55,16 @@ public class CommentController implements CommunityConstant {
             event.setEntityUserId(target.getUserId());
         }
         eventProducer.fireEvent(event); // 发布事件
+
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
+            // 触发发贴事件
+            event = new Event()
+                    .setTopic(TOPIC_PUBLISH)
+                    .setUserId(comment.getUserId())
+                    .setEntityType(ENTITY_TYPE_POST)
+                    .setEntityId(discussPostId);
+            eventProducer.fireEvent(event);
+        }
 
         return "redirect:/discuss/detail/" + discussPostId;//重定向到帖子详情页面
     }
