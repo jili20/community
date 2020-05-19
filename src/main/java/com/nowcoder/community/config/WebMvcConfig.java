@@ -1,6 +1,7 @@
 package com.nowcoder.community.config;
 
 import com.nowcoder.community.controller.interceptor.AlphaInterceptor;
+import com.nowcoder.community.controller.interceptor.DataInterceptor;
 import com.nowcoder.community.controller.interceptor.LoginTicketInterceptor;
 import com.nowcoder.community.controller.interceptor.MessageInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private MessageInterceptor messageInterceptor;
 
+    @Autowired
+    private DataInterceptor dataInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(alphaInterceptor) // 添加注册拦截器。这样写拦截所有
@@ -39,6 +43,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(messageInterceptor) // 拦截所有
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");// 排除哪些不拦截
+
+        registry.addInterceptor(dataInterceptor) // 拦截所有
+                .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");// 排除哪些不拦截
+
     }
 }
 
