@@ -159,8 +159,8 @@ public class MessageController implements CommunityConstant {
         User user = hostHolder.getUser();
         // 查询评论类通知
         Message message = messageService.findLatestNotice(user.getId(), TOPIC_COMMENT);
-        Map<String, Object> messageVo = new HashMap<>();
         if (message != null) {
+            Map<String, Object> messageVo = new HashMap<>();
             messageVo.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent()); // 还原转义字符
@@ -176,15 +176,13 @@ public class MessageController implements CommunityConstant {
             //未读评论通知数量
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_COMMENT);
             messageVo.put("unread",unread);
-        }else {
-            messageVo.put("message",message);
+            model.addAttribute("commentNotice",messageVo);
         }
-        model.addAttribute("commentNotice",messageVo);
 
         // 查询点赞类通知
         message = messageService.findLatestNotice(user.getId(), TOPIC_LIKE);
-        messageVo = new HashMap<>();
         if (message != null) {
+            Map<String, Object> messageVo = new HashMap<>();
             messageVo.put("message",message);
             //将content从json格式的字符串转换为字符串对象
             String content = HtmlUtils.htmlUnescape(message.getContent()); // 还原转义字符
@@ -200,15 +198,16 @@ public class MessageController implements CommunityConstant {
             //未读评论通知数量
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_LIKE);
             messageVo.put("unread",unread);
-        }else {
-            messageVo.put("message",message);
+            model.addAttribute("likeNotice",messageVo);
         }
-        model.addAttribute("likeNotice",messageVo);
+//        else {
+//            messageVo.put("message",message);
+//        }
 
         // 查询关注类通知
         message = messageService.findLatestNotice(user.getId(), TOPIC_FOLLOW);
-        messageVo = new HashMap<>();
         if (message != null) {
+            Map<String, Object> messageVo = new HashMap<>();
             messageVo.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent()); // 还原转义字符
@@ -223,10 +222,8 @@ public class MessageController implements CommunityConstant {
             //未读评论通知数量
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_FOLLOW);
             messageVo.put("unread",unread);
-        }else {
-            messageVo.put("message",message);
+            model.addAttribute("followNotice",messageVo);
         }
-        model.addAttribute("followNotice",messageVo);
 
         // 查询私信未读数量
         int letterUnreadCount = messageService.findLetterUnreadCount(user.getId(), null);

@@ -61,6 +61,11 @@ public interface CommunityConstant {
     String TOPIC_PUBLISH = "publish";
 
     /**
+     * 主题：删帖
+     */
+    String TOPIC_DELETE = "delete";
+
+    /**
      * Kafka 主题：
      */
     String TOPIC_FOLLOW = "follow";
@@ -69,6 +74,21 @@ public interface CommunityConstant {
      * Kafka 系统用户 ID - 发送系统通知用
      */
     int SYSTEM_USER_ID = 1;
+
+    /**
+     * 权限：普通用户
+     */
+    String AUTHORITY_USER = "user";
+
+    /**
+     * 权限：管理员
+     */
+    String AUTHORITY_ADMIN = "admin";
+
+    /**
+     * 权限：版主
+     */
+    String AUTHORITY_MODERATOR = "moderator";
 
 }
 

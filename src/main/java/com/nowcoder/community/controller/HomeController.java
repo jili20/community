@@ -12,12 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
  * @author bing  @create 2020/5/7 11:32 上午
  */
@@ -62,6 +60,13 @@ public class HomeController implements CommunityConstant { //引入常量
     public String getErrorPage(){
         return "/error/500";
     }
+
+    // 拒绝访问时的提示页面
+    @RequestMapping(path = "/denied", method = RequestMethod.GET)
+    public String getDeniedPage(){
+        return "/error/404";
+    }
+
 }
 
 
