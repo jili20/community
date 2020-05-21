@@ -9,7 +9,9 @@ import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
 import com.nowcoder.community.util.HostHolder;
+import com.nowcoder.community.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +40,8 @@ public class DiiscussPostController implements CommunityConstant {
     private LikeService likeService;
     @Autowired
     private EventProducer eventProducer; // 事件生产者
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -56,7 +60,7 @@ public class DiiscussPostController implements CommunityConstant {
         post.setCreateTime(new Date());
         discussPostService.addDiscussPost(post);
 
-        // 触发发贴事件
+        //触发发帖事件
         Event event = new Event()
                 .setTopic(TOPIC_PUBLISH)
                 .setUserId(user.getId())
@@ -64,8 +68,12 @@ public class DiiscussPostController implements CommunityConstant {
                 .setEntityId(post.getId());
         eventProducer.fireEvent(event);
 
-        // 报错的情况，将来统一处理。
-        return CommunityUtil.getJSONString(0, "发布成功！");
+        //计算帖子分数
+        String redisKey = RedisKeyUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(redisKey,post.getId());
+
+        //报错的情况，将来统一处理
+        return CommunityUtil.getJSONString(0,"发布成功");//code为0，代表发送成功
     }
 
     // 帖子详情
@@ -170,14 +178,19 @@ public class DiiscussPostController implements CommunityConstant {
     @ResponseBody  //异步
     public String setWonderful(int id){
         discussPostService.updateStatus(id,1);
-        // 触发帖子加精事件
+        //触发发帖事件
         Event event = new Event()
                 .setTopic(TOPIC_PUBLISH)
                 .setUserId(hostHolder.getUser().getId())
                 .setEntityType(ENTITY_TYPE_POST)
                 .setEntityId(id);
         eventProducer.fireEvent(event);
-        return CommunityUtil.getJSONString(0);//成功状态提示0
+
+        //计算帖子分数
+        String redisKey = RedisKeyUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(redisKey,id);
+
+        return CommunityUtil.getJSONString(0);
     }
 
     // 删除帖子
@@ -195,29 +208,3 @@ public class DiiscussPostController implements CommunityConstant {
         return CommunityUtil.getJSONString(0);//成功状态提示0
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

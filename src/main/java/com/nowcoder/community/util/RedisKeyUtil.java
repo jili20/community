@@ -16,6 +16,7 @@ public class RedisKeyUtil {
     private static final String PREFIX_USER = "user";// 定义存用户信息的前缀
     private static final String PREFIX_UV = "uv";// 定义独立访客前缀,通过用户IP排重统计数据
     private static final String PREFIX_DAU = "dau";// 定义日活跃用户前缀
+    private static final String PREFIX_POST = "post";// 定义日活跃用户前缀
 
 
     //某个实体的赞
@@ -79,33 +80,9 @@ public class RedisKeyUtil {
         return PREFIX_DAU + SPLIT + startDate + SPLIT + endDate;
     }
 
+    // 帖子分数
+    public static String getPostScoreKey(){
+        return PREFIX_POST + SPLIT + "score";
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

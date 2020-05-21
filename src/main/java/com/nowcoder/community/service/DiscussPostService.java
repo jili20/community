@@ -19,8 +19,8 @@ public class DiscussPostService {
     private SensitiveFilter sensitiveFilter;// 过滤敏感词工具
 
     // 查询某页数据
-    public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit){
-        return discussPostMapper.selectDiscussPosts(userId, offset, limit);
+    public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit, int orderMode){
+        return discussPostMapper.selectDiscussPosts(userId, offset, limit, orderMode);
     }
 
     // 查询行数
@@ -58,56 +58,23 @@ public class DiscussPostService {
         return discussPostMapper.updateType(id, type);
     }
 
-    // 根据id修改状态
+    /**
+     * 修改帖子的状态
+     * @param id
+     * @param status 加精、删除
+     * @return
+     */
     public int updateStatus(int id, int status){
         return discussPostMapper.updateStatus(id, status);
     }
+
+    /**
+     * 修改帖子的分数
+     * @param id
+     * @param score
+     * @return
+     */
+    public int updateScore(int id, double score){
+        return discussPostMapper.updateScore(id, score);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

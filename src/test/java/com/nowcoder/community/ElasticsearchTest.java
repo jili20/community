@@ -59,14 +59,14 @@ public class ElasticsearchTest {
 
     @Test // 插入多第数据
     public void testInsetList(){
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(101,0,100));//带分页
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(102,0,100));//带分页
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(103,0,100));//带分页
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(111,0,100));//带分页
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(112,0,100));//带分页
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(131,0,100));//带分页
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(133,0,100));//带分页
-        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(134,0,100));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(101,0,100,0));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(102,0,100,0));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(103,0,100,0));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(111,0,100,0));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(112,0,100,0));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(131,0,100,0));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(133,0,100,0));//带分页
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(134,0,100,0));//带分页
         // 在postman 中查看结果：GET localhost:9200/discusspost/_search
     }
 

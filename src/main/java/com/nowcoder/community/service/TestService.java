@@ -5,7 +5,10 @@ import com.nowcoder.community.dao.UserMapper;
 import com.nowcoder.community.entity.DiscussPost;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.util.CommunityUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
@@ -21,6 +24,10 @@ import java.util.Date;
  */
 @Service
 public class TestService {
+
+    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(TestService.class);
+
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -94,30 +101,16 @@ public class TestService {
             }
         });
     }
+
+    // 让该方法在多线程环境下，被异步的调用
+    @Async
+    public void execute1(){
+        logger.debug("execute1");
+    }
+
+    // 执行定时方法:延迟10执行，1秒执行一次
+//    @Scheduled(initialDelay = 10000,fixedRate = 1000)
+    public void execute2(){
+        logger.debug("execute2");
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

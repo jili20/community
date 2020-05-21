@@ -66,7 +66,12 @@ public interface CommunityConstant {
     String TOPIC_DELETE = "delete";
 
     /**
-     * Kafka 主题：
+     * 主题：分享
+     */
+    String TOPIC_SHARE = "share";
+
+    /**
+     * Kafka 主题：关注
      */
     String TOPIC_FOLLOW = "follow";
 
@@ -91,25 +96,3 @@ public interface CommunityConstant {
     String AUTHORITY_MODERATOR = "moderator";
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

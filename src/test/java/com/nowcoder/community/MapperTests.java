@@ -84,7 +84,7 @@ public class MapperTests {
     public void testSelectPosts()
     {
 //        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(0, 0, 10);  // 查询所有帖子，10 条为一页
-        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(149, 0, 10); // 查询用户id 149 所有帖子
+        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(149, 0, 10,0); // 查询用户id 149 所有帖子
         for (DiscussPost post : list) {
             System.out.println(post);
         }
