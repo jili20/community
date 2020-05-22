@@ -50,8 +50,7 @@ public class MapperTests {
     }
 
     @Test
-    public void testInsertUser()
-    {
+    public void testInsertUser() {
         User user = new User();
         user.setUsername("test");
         user.setPassword("123456");
@@ -66,8 +65,7 @@ public class MapperTests {
     }
 
     @Test
-    public void updateUser()
-    {
+    public void updateUser() {
         int rows = userMapper.updateStatus(150, 1);
         System.out.println(rows);
 
@@ -81,10 +79,9 @@ public class MapperTests {
 
     // 帖子表
     @Test
-    public void testSelectPosts()
-    {
+    public void testSelectPosts() {
 //        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(0, 0, 10);  // 查询所有帖子，10 条为一页
-        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(149, 0, 10,0); // 查询用户id 149 所有帖子
+        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(149, 0, 10, 0); // 查询用户id 149 所有帖子
         for (DiscussPost post : list) {
             System.out.println(post);
         }
@@ -96,8 +93,7 @@ public class MapperTests {
 
     // 测试 login_ticket 表
     @Test
-    public void testInsertLoginTicket()
-    {
+    public void testInsertLoginTicket() {
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(101);
         loginTicket.setTicket("abc");
@@ -109,10 +105,9 @@ public class MapperTests {
 
 
     @Test
-    public void testSelectConversations()
-    {
+    public void testSelectConversations() {
         //查询userid 111 用户的私信
-        List<Message> list = messageMapper.selectConversations(111,0,20);
+        List<Message> list = messageMapper.selectConversations(111, 0, 20);
         for (Message message : list) {
             System.out.println(message);
         }
@@ -122,7 +117,7 @@ public class MapperTests {
         System.out.println(count);
 
         //3、查询某个会话所包含的私信列表，私信详情页面使用
-        list = messageMapper.selectLetters("111_112", 0,10);
+        list = messageMapper.selectLetters("111_112", 0, 10);
         for (Message message : list) {
             System.out.println(message);
         }
@@ -136,20 +131,7 @@ public class MapperTests {
         System.out.println(count);
 
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
